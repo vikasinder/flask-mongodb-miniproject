@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_tasks")
 def get_tasks():
-    tasks = mongo.db.tasks.find()
+    tasks = list(mongo.db.tasks.find())
     return render_template("tasks.html", tasks=tasks)
 
 
@@ -85,14 +85,8 @@ def profile(username):
 
     return redirect(url_for("login"))
 
-@app.route("/update/<username>", methods=["GET", "POST"])
-def update(username):
-    user = mongo.db.users.find_one(
-        {"username": session["user"]})
-    if session["user"]:
-        return render_template("update.html", user=user)
 
-    return redirect(url_for("login"))
+    
 @app.route("/logout")
 def logout():
     flash("You have been logged out")
@@ -100,6 +94,11 @@ def logout():
     return redirect(url_for("login"))
 
 
+
+@app.route("/add_task")
+def add_task():
+    return render_template("add_task.html")
+ 
 
 
 if __name__ == "__main__":
