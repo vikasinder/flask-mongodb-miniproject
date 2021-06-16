@@ -8,4 +8,5 @@
         done:"select"
       }
     });
+    $('select').formSelect();
   });
