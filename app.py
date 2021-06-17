@@ -83,8 +83,7 @@ def profile(username):
     if session["user"]:
         return render_template("profile.html", user=user)
 
-    return redirect(url_for("login"))
-
+   
 
 
     
@@ -115,6 +114,32 @@ def add_task():
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_task.html", categories=categories)
 
+
+
+
+@app.route("/update_user/<user_id>", methods=["GET", "POST"])
+def update_user(user_id):
+    user = mongo.db.users.find_one(
+        {"username": session["user"]})
+    if request.method == "POST":
+        submit = {
+            "username": request.form.get("username"),
+            "email": request.form.get("email"),
+            "address": request.form.get("address"),
+            "postal": request.form.get("postal")
+          }
+        mongo.db.tasks.update({"_id": ObjectId(user_id)}, submit)
+        flash("Successfully Updated")
+  
+    user_update = mongo.db.tasks.find_one({"_id": ObjectId(user_id)})
+    return render_template("update_user.html", user_update=user_update, user=user)
+  
+    # user=mongo.db.users.find_one({"_id":ObjectId(user_id)})
+    # mongo.db.users.update({"_id": ObjectId(user_id)},{"$set":submit})
+    # return render_template("profile.html", user=user)
+
+
+
 @app.route("/edit_task/<task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     if request.method == "POST":
@@ -133,6 +158,8 @@ def edit_task(task_id):
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_task.html", task=task, categories=categories)
+
+
 
 @app.route("/delete_task/<task_id>")
 def delete_task(task_id):

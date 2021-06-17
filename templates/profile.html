@@ -1,37 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row ">
-    <div>
-        <h5 class="center-align">Welcome</h5>
-      </div>
-    <table class="col s12 m6 offset-m3 teal lighten-2 ">
-        <thead>
-            <tr class="striped">
-                <th>Welcome : {{ user.username }}</th>
-                <th>{{ user._id }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Current Address : {{ user.address }}</td>
-            </tr>
-            <tr>
-                <td>Email : {{ user.email }}</td>
-            </tr>
-            <tr>
-                <td>Current Postal Code : {{ user.postal }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <div class="col s12">
-            <p class="center-align">
-                Update User ?
-                <a href="" class="light-blue-text text-darken-4">Update</a>
-            </p>
-        </div>
-      </div>
-   
+<h3 class="light-blue-text text-darken-4 center-align"></h3>
+{{user.username}}
+
+<div class="row">
+  <div class="col s12">
+      <p class="center-align">
+          Want To Update ?
+          <a href="{{ url_for('update_user', user_id=user._id) }}" class="light-blue-text text-darken-4">Click Here</a>
+      </p>
+  </div>
 </div>
 
 {% endblock %}

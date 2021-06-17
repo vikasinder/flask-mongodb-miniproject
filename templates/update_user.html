@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="light-blue-text text-darken-4 center-align"></h3>
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('update_user', user_id=user._id) }}">
+      <div class="card-panel teal">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix fas fa-user-cog"></i>
+            <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15" required
+          value="{{ user.username }}" > 
+            <label for="username">User Name</label>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix fas fa-user-lock"></i>
+            <input id="password" name="password"  pattern="^[a-zA-Z0-9]{5,15}$" type="password" class="validate" minlength="5" maxlength="15" required 
+            value="{{ user.password }}">
+            <label for="password">Password</label>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix fas fa-user-lock"></i>
+            <input id="email" name="email"   type="email" class="validate"  required  value="{{ user.email }}">
+            <label for="Email Address">Email Address</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix fas fa-user-lock"></i>
+            <input id="address" name="address" class="validate" required   value="{{ user.address }}">
+            <label for="Address">Address</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix fas fa-user-lock"></i>
+            <input id="postal" name="postal" class="validate"  required  value="{{ user.postal }}">
+            <label for="Postal Code">Postal Code</label>
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="col s12  btn-large text-shadow fas fa-sign-in-alt">
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
