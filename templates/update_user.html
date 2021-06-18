@@ -2,8 +2,8 @@
 {% block content %}
 <h3 class="light-blue-text text-darken-4 center-align"></h3>
 <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('update_user', user_id=updated._id) }}">
-      <div class="card-panel teal">
+    <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('update_user', user_id=updated._id) }}">
+      <div class="card-panel grey lighten-3">
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix fas fa-user-cog"></i>
@@ -37,20 +37,23 @@
             <label for="Email Address">Email Address</label>
           </div>
         </div>
+        
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix fas fa-user-lock"></i>
-            <input id="address" name="address" class="validate" required   value="{{ updated.address }}">
+            <input id="address" name="address"   type="text" class="validate"  required  value="{{ updated.address }}">
             <label for="Address">Address</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix fas fa-user-lock"></i>
-            <input id="postal" name="postal" class="validate"  required  value="{{ updated.postal }}">
+            <input id="postal" name="postal"   type="text" class="validate"  required  value="{{ updated.postal }}">
             <label for="Postal Code">Postal Code</label>
           </div>
         </div>
+       
+      
         <div class="row">
           <button type="submit" class="col s12  btn-large text-shadow fas fa-sign-in-alt">
             Update
