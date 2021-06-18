@@ -34,8 +34,9 @@ def register():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
-
+        user_role = "admin" if request.form.get("is_urgent") else "user"
         register = {
+            "role": user_role,
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
             "email": request.form.get("email").lower(),
@@ -61,6 +62,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                         session["user"] = request.form.get("username").lower()
+                        session["role"]=existing_user["role"]
                         flash("Welcome, {}".format(
                             request.form.get("username")))
                         return redirect(url_for(
@@ -122,8 +124,10 @@ def update_user(user_id):
     user = mongo.db.users.find_one(
         {"username": session["user"]})
     password=user["password"]
+    role=user["role"]
     if request.method == "POST":
         submit = {
+            "role":role,
             "username": request.form.get("username"),
             "password":password,
             "email": request.form.get("email"),
