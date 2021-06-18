@@ -121,22 +121,23 @@ def add_task():
 def update_user(user_id):
     user = mongo.db.users.find_one(
         {"username": session["user"]})
+    password=user["password"]
     if request.method == "POST":
         submit = {
             "username": request.form.get("username"),
+            "password":password,
             "email": request.form.get("email"),
             "address": request.form.get("address"),
             "postal": request.form.get("postal")
           }
-        mongo.db.tasks.update({"_id": ObjectId(user_id)}, submit)
+        
         flash("Successfully Updated")
+        mongo.db.users.update({"_id": ObjectId(user_id)}, submit)
+    updated = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    return render_template("update_user.html", updated=updated,password=password)
+   
   
-    user_update = mongo.db.tasks.find_one({"_id": ObjectId(user_id)})
-    return render_template("update_user.html", user_update=user_update, user=user)
-  
-    # user=mongo.db.users.find_one({"_id":ObjectId(user_id)})
-    # mongo.db.users.update({"_id": ObjectId(user_id)},{"$set":submit})
-    # return render_template("profile.html", user=user)
+    
 
 
 
