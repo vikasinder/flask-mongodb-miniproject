@@ -137,7 +137,7 @@ def update_user(user_id):
         flash("Successfully Updated")
         mongo.db.users.update({"_id": ObjectId(user_id)}, submit)
     updated = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    return render_template("update_user.html", updated=updated,password=password)
+    return render_template("update_user.html", updated=updated)
    
   
     
@@ -170,6 +170,12 @@ def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
     return redirect(url_for("get_tasks"))
+
+@app.route("/get_categories")
+def get_categories():
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    return render_template("categories.html", categories=categories)
+
 
 
 if __name__ == "__main__":
